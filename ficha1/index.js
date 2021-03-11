@@ -77,7 +77,7 @@ else{
 
 var operador1 = 2;
 var operador2 = 4;
-var operado = "^";
+var operado = "-";
 var resultado = 0;
 if(operado == "+"){
     resultado = operador1 +operador2;
@@ -99,4 +99,77 @@ else if(operado == "^"){
     resultado = Math.pow(operador1, operador2);
     console.log("EXPOENTE");
 }
-console.log(resultado);
+//console.log(resultado);
+
+// Implemente uma função que imprima todos os múltiplos de 5 menores que 20;
+console.log(" ");
+//inicializaçao
+var i = 0;
+//guarda ou clndição
+//while(i <= 20){
+    //execuçao
+  //  if(i % 5 == 0){
+    //    console.log(i);
+   // }
+    //incrementaçao
+   // i++;
+//}
+//for (let j = 0; j <= 20; j++) {
+ //   if(j % 5 == 0) {
+        //console.log(j);
+  //  }
+    
+//}
+//for (let j = 0; j <= 20; j+=5) {
+ //      console.log(j);
+       
+//}
+//9.Implemente uma função que imprima a soma dos primeiros 100 números inteiros.
+var sum = 0;
+for (let j = 0; j <= 100; j++) {
+   
+    sum = sum + j;
+    
+}
+//console.log("total: "+ sum);
+// 10. Implemente uma função que calcule e devolva o fatorial de um número.
+//3! = 3 x 2 x 1 = 6
+var fact = 1;
+for (let j = 1; j <= 3; j++) {
+   fact *=j
+    
+    
+}
+console.log(fact);
+//11. Implemente várias funções para calcular o máximo, 
+//o mínimo e a média de uma sequência de números positivos.
+
+var array = [1,4,5,7,0,12];
+var max = array[0];
+for (let i = 1; i < array.length; i++) {
+    if(array[i] > max) {
+        max = array[i];
+    }
+     
+    
+}
+console.log(max)
+var min = array[0];
+for (let i = 1; i < array.length; i++) {
+    if(array[i] < min) {
+        min = array[i];
+    }
+     
+    
+}
+console.log(min);
+var sum = 0
+ var average = 0
+for (let i = 1; i < array.length; i++) {
+     sum += array[i]
+     average = sum / array.length;
+     
+    
+}
+average = sum / array.length;
+console.log(average);
