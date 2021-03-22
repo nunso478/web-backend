@@ -268,9 +268,7 @@ function notanegativa (array){
 
 }
 var negGrade = notanegativa(studentarray);
-/*console.log(' ');
-console.log('nota negativa');
-console.log(negGrade.getGrade());*/
+ 
 
 // verificaçao da nota positiva  
 function notapositiva (array){
@@ -290,6 +288,4 @@ function notapositiva (array){
 
 }
 var posGrade = notapositiva(studentarray);
-/*console.log(' ');
-console.log('nota positiva');
-console.log(posGrade.getGrade());*/
+ 
