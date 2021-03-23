@@ -22,4 +22,7 @@ function performDownload(startedF,updateF,completedF) {
 
 //============================================================================
 var log = require("./log.js");
-console.log(log);
+ //log();
+ console.log(log.message);
+
+ console.log(log.functionobj("hello"));
