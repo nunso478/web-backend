@@ -270,6 +270,7 @@ function notanegativa (array){
 var negGrade = notanegativa(studentarray);
  
 
+
 // verificaçao da nota positiva  
 function notapositiva (array){
     console.log(" ");
@@ -278,7 +279,7 @@ function notapositiva (array){
     for (let i = 0; i < array.length; i++) {
         const student = array[i];
        
-        if(array[i].grade > 9.5){
+        if(array[i].grade >= 9.5){
            
             console.log(student.getGrade());
         }
@@ -288,4 +289,30 @@ function notapositiva (array){
 
 }
 var posGrade = notapositiva(studentarray);
+
+function getAverage(array) {
+    var average = 0;
+    for (let i = 0; i < array.length; i++) {
+        average += array[i].grade;
+    }
+    average = average / array.length;
+    return average;
+}
+function getClosestFromAverage(array) {
+   var average = getAverage(array);
+   var min = array[0];
+   var index = 0;
+   for (let i = 0; i < array.length; i++) {
+       var diff = Math.abs(array[i].grade - average);
+       if (diff < min) {
+           min = diff;
+           index = i;
+       } 
+   }
+   return array[index];
+}
+var getClosest = getClosestFromAverage(studentarray);
+console.log(' ');
+console.log('media nota');
+console.log(getClosest.getGrade());
  
