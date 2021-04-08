@@ -1,21 +1,40 @@
 class Emiter {
     constructor(){
         //propriedade
-         this.event = {}; 
+         this.event = {
+         }; 
     }
   
 }
-// função ou método
+//array.push adicionar numero ou strings.
+
+
+// função ou método                 funçao
 Emiter.prototype.on = function(type,listener) {
-    console.log("type " + type + " , listener: " + listener);
-    
+    if(this.event[type] == undefined){
+        this.event[type] = [];
+    }
+     this.event[type].push(listener);
+}
+Emiter.prototype.emit = function(type) {
+    if(this.event[type] != undefined){
+        this.event[type].forEach(function(listener) {
+            listener();
+        });
+    }
+   
 }
 //propriedade -> Emiter.prototype.off = 20;
 //console.log(emitter.off)
 
 
-//criação de uma nova instância da classe Emitter
-var emitter = new Emiter(); // instancia
-// console.log(emitter.event);
-// invocação do método on 
-emitter.on("tipo","Ouvinte");
+
+module.exports = Emiter;
+
+
+
+
+
+
+
+var x = 0;
