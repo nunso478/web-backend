@@ -1,26 +1,26 @@
 {
-    "person1":{
-        "firstname":"Pedro",
-        "lastName":"Lopes",
-        "profession":"Teacher",
-        "Gender":"male",
-        "age":25,
-        "id":1
+    "person1": {
+        "firstname": "Pedro",
+        "lastName": "Lopes",
+        "profession": "Teacher",
+        "Gender": "male",
+        "age": 25,
+        "id": 1
     },
-    "person2":{
-        "firstname":"Joana",
-        "lastName":"Campos",
-        "profession":"Librarian",
-        "Gender":"Female",
-        "age":35,
-        "id":2
+    "person2": {
+        "firstname": "Joana",
+        "lastName": "Campos",
+        "profession": "Librarian",
+        "Gender": "Female",
+        "age": 35,
+        "id": 2
     },
-    "person3":{
-        "firstname":"Ana",
-        "lastName":"silva",
-        "profession":"cleck",
-        "Gender":"female",
-        "age":55,
-        "id":3
+    "person3": {
+        "firstname": "Ana",
+        "lastName": "silva",
+        "profession": "cleck",
+        "Gender": "female",
+        "age": 55,
+        "id": 3
     }
 }
