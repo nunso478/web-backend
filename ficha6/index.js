@@ -27,7 +27,8 @@ app.use(express.urlencoded({extended:false}));
 app.get('/', (request, response) => {
     //var body = "<!DOCTYPE html><html> <head><title>Page Title</title></head><body><h1>This is a Heading</h1><p>This is a paragraph.</p></body></html>";
     var file = fs.readFileSync("./index.html",'utf-8');
-    file = file.replace('{date}','20/04/21');
+    var date = new Date();
+    file = file.replace('{date}',date.toLocaleDateString());
 
     response.writeHead(200, {
         'content-Lenght':Buffer.byteLength(file),
