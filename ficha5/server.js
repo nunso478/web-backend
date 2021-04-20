@@ -118,9 +118,6 @@ app.put('/users/:id', (req, res) => {
   }
 
 })
-
-
-
 // alt + shift + F por direito
 
 // metodo que arranca o servidor http e fica a escuta.
