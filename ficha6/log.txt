@@ -1,0 +1,1 @@
+/log, GET: Thu Apr 22 2021 18:30:20 GMT+0100 (Hora de verão da Europa Ocidental)
