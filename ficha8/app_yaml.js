@@ -4,18 +4,22 @@ const express = require('express');
 const fs = require("fs");
 const mysql = require('mysql');
 //importar swagger 
+//importar swagger
+const swaggerJSDocument = require('./swagger.json');
+const swaggerUi = require('swagger-ui-express');
+// instanciar
+const app = express();
+
 
 // instanciar o express
 const app = express()
 // definir a porta do servidor http
 const port = 3000
-//require para o file system
-//const fs = require("fs");
-const { request } = require('http');
-const e = require('express');
 //funçoes midleware
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerJSDocument));
+
 
 var connection = mysql.createConnection({
   host:'localhost',
@@ -24,6 +28,85 @@ var connection = mysql.createConnection({
   database:'ficha7'
 
 });
+
+const swaggerOptions ={
+    "swagger":"2.0",
+    "info": {
+      "version":"1.0.0",
+      "title":"ficha8 API",
+      "description":"Ficha 8 API information",
+      "contact":{
+        "name":"TPSI-DWB"
+      },
+      "servers":["http://localhost:3000"],
+    },
+    "paths": {
+      "/person":{
+        "post": {
+          "tags":[
+              "person"
+          ],
+          "summary":"Create person",
+          "description":"this can only be done by logged in user.",
+          "operationID":"createPerson",
+          "produces":[
+            "application/xml",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in":"body",
+              "name":"body",
+              "description":"Created person object",
+              "required": true,
+              "schema": {
+                  "$ref":"#/definitions/Person"
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+                "description":"successfull operation"
+            }
+          }
+        }
+      }
+    },
+    "definitions":{
+      "Person":{
+        "type":"object",
+        "properties": {
+          "id":{
+            "type":"integer",
+            "x-primery-key":true
+          },
+          "firstname":{
+            "type":"string"
+          },
+          "lastname":{
+            "type":"string"
+          },
+          "profession":{
+            "type":"string"
+          },
+          "age":{
+            "type":"integer",
+            "format":"int64"
+          },
+        }
+      }
+
+    },
+   
+  apis:["app.js"]
+};
+
+
+
+
+
+
+
 
 
 app.get('/persons',(request,response)=>{
@@ -38,6 +121,8 @@ app.get('/persons',(request,response)=>{
   });
 
 });
+ 
+
 
 app.post('/persons',(request,response)=>{
   var details = request.body;

@@ -143,6 +143,34 @@ app.post('/persons',(request,response)=>{
    //localhost:3000/personssons?id=1
    // request.query.id
 
+
+
+
+
+/**
+ *  @swagger
+ *  /persons:
+ *    delete:
+ *      tags:
+ *        - Persons
+ *      summary: Delete a list of persons
+ *      description: Returns a list of persons
+ *      produces:
+ *           - application/json
+ *      parameters:
+ *           - name: id
+ *             description: Delete person
+ *             in: path
+ *             required: true
+ *             
+ *      responses:
+ *          200:
+ *              descrition: Sucessfully Operation
+ *              schema:
+ *                $ref: '#/definitions/Person'
+ * 
+ *              
+ */
 app.delete('/persons',(request,response)=>{
   var id = request.body.id
   connection.query('DELETE  FROM persons WHERE ID = ?', id,function(error,results,fields) {
@@ -176,7 +204,7 @@ app.delete('/persons',(request,response)=>{
 
 /**
  *  @swagger
- *  /persons{id}:
+ *  /persons/{id}:
  *    get:
  *      tags:
  *        - Persons
@@ -185,15 +213,15 @@ app.delete('/persons',(request,response)=>{
  *      produces:
  *           - application/json
  *      parameters:
- *           - name: Model
- *             description: Sample person
+ *           - name: id
+ *             description: insert ID 
  *             in: path
  *             required: true
  *             schema:
  *                $ref: '#/definitions/Person'
  *      responses:
  *          200:
- *              descrition: An array of persons
+ *              in: Find id the person
  *    
  *              
  */
@@ -218,7 +246,7 @@ app.get('/persons/:id',(request,response)=>{
 
 /**
  *  @swagger
- *  /persons:
+ *  /persons/{age}/{profession}:
  *    get:
  *      tags:
  *        - Persons
@@ -226,11 +254,22 @@ app.get('/persons/:id',(request,response)=>{
  *      description: Returns a list of persons
  *      produces:
  *           - application/json
+ *      parameters:
+ *           - name: age
+ *             description: age
+ *             in: path
+ *             required: true
+ *           - name: profession
+ *             description: profession
+ *             in: path
+ *             required: true
+ *             schema:
+ *                $ref: '#/definitions/Person'
  *      responses:
  *          200:
- *              descrition: An array of persons
- *              schema:
- *                $ref: '#/definitions/Person'
+ *              in: Find age and profession the person
+ *    
+ *              
  */
 app.get('/persons/:age/:profession',(request,response)=>{
   var age = request.params.age
@@ -252,6 +291,32 @@ app.get('/persons/:age/:profession',(request,response)=>{
 });
 });
 
+/**
+ *  @swagger
+ *  /persons/{id}:
+ *    put:
+ *      tags:
+ *        - Persons
+ *      summary: Update a list of persons
+ *      description: Returns a list of persons
+ *      produces:
+ *           - application/json
+ *      parameters:
+ *           - name: id
+ *             description: User ID
+ *             in: path
+ *             required: true
+ *           - name: Model
+ *             description: alter column
+ *             in: body
+ *             required: true
+ *             schema:
+ *                $ref: '#/definitions/Person'
+ *      responses:
+ *          200:
+ *              descrition: Sucessfully  Update
+ *              
+ */
 app.put('/persons/:id',(request,response)=>{
   var id = request.params.id
   var details = request.body;
