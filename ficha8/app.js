@@ -160,14 +160,15 @@ app.post('/persons',(request,response)=>{
  *      parameters:
  *           - name: id
  *             description: Delete person
- *             in: path
+ *             in: body
  *             required: true
- *             
+ *             type: string
+               schema:
+ *                $ref: '#/definitions/Person'
  *      responses:
  *          200:
- *              descrition: Sucessfully Operation
- *              schema:
- *                $ref: '#/definitions/Person'
+ *              descrition: Sucessfully deleted
+ *              
  * 
  *              
  */
@@ -187,19 +188,43 @@ app.delete('/persons',(request,response)=>{
 
 
 
-
-//app.delete('/persons/:id',(request,response)=>{
-//  var id = request.params.id
-//  connection.query('DELETE FROM persons WHERE ID = ?', id,function(error,results,fields) {
-//    if (error){
-//      response.status(404);
-//      response.end(error.message);
-//    }
-//    response.send("DELETED: " + results.affectedRows + " entry(s)");
+/**
+ *  @swagger
+ *  /persons/{id}:
+ *    delete:
+ *      tags:
+ *        - Persons
+ *      summary: Delete a list of persons
+ *      description: Returns a list of persons
+ *      produces:
+ *           - application/json
+ *      parameters:
+ *           - name: id
+ *             description: Delete person
+ *             in: path
+ *             required: true
+ *             type: string
+ *             schema:
+ *                $ref: '#/definitions/Person'
+ *      responses:
+ *          200:
+ *              descrition: Sucessfully deleted
+ *              
+ * 
+ *              
+ */
+app.delete('/persons/:id',(request,response)=>{
+ var id = request.params.id
+  connection.query('DELETE FROM persons WHERE ID = ?', id,function(error,results,fields) {
+    if (error){
+     response.status(404);
+      response.end(error.message);
+    }
+    response.send("DELETED: " + results.affectedRows + " entry(s)");
     
 
-//});
-//});
+});
+});
 
 
 /**
@@ -233,7 +258,7 @@ app.get('/persons/:id',(request,response)=>{
       response.end(error.message);
     }
     
-    if(results.lenght == 0){
+    if(results.length == 0){
       response.status(404);
       response.end('id not found ');
     }
@@ -280,7 +305,7 @@ app.get('/persons/:age/:profession',(request,response)=>{
       response.end(error.message);
     }
     
-    if(results.lenght == 0){
+    if(results.length == 0){
       response.status(404);
       response.end('id not found ');
     }
@@ -327,7 +352,7 @@ app.put('/persons/:id',(request,response)=>{
       response.end(error.message);
     }
     
-    if(results.lenght == 0){
+    if(results.length == 0){
       response.status(404);
       response.end('id not found ');
     }
