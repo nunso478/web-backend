@@ -14,7 +14,6 @@ const app = express()
 // definir a porta do servidor http
 const port = 3000
 
- 
 //funçoes midleware
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
