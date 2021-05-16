@@ -133,7 +133,7 @@ app.get('/person/:id', (request, response) => {
 
 //body-> request.body
 //Params -> request.params
-//Query -> request.query exemplo person?user = test
+//Query -> request.query exemplo person?user = test exemplo http://localhost:3000/person?user=test
 
 // listar pelo params age e profession
 app.get('/person/:age/:profession', (request, response) => {
@@ -164,6 +164,7 @@ app.put('/person/:id', (request, response) => {
     });
 
 });
+
 
 // metodo que arranca o servidor http e fica a escuta
 app.listen(port, () => {
