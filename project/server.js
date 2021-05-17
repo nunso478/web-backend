@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc));
 
-
+//PARTE A
 // Connect and authenticate to DB using Sequelize in JS code
 const sequelize = new Sequelize('ficha9', 'root', '', {
     dialect: 'mysql'
@@ -116,15 +116,20 @@ app.get('/product?seller_id=', (request, response) => {
         }
     }).then(product => {
         response.send(product)
+    }).catch(err => {
+        response.status(404).send("Not found: " + err);
+
     });
 
 });
 app.put('/product/:views', (request, response) => {
-    person.update({ where: {
-        views: request.params.views,
-        
-    }},{ }).then(person => {
-        response.send(person)
+    var details = request.body;
+    product.update({details},{
+        where: {
+            views: request.params.views
+            
+        }}).then(product => {
+        response.send(product)
     }).catch(err => {
         response.status(404).send("Not found: " + err);
 
@@ -139,10 +144,15 @@ app.get('/product?tags=', (request, response) => {
         }
     }).then(product => {
         response.send(product)
+    }).catch(err => {
+        response.status(404).send("Not found: " + err);
+
     });
 
 });
+//FIM DA PARTE A
 
+//INICIO DA PARTE B
 
 
 // metodo que arranca o servidor http e fica a escuta
