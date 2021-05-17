@@ -120,12 +120,10 @@ app.get('/product?seller_id=', (request, response) => {
 
 });
 app.put('/product/:views', (request, response) => {
-    person.update({
-        where: {
-            views: request.params.views,
-            
-        }
-    }).then(person => {
+    person.update({ where: {
+        views: request.params.views,
+        
+    }},{ }).then(person => {
         response.send(person)
     }).catch(err => {
         response.status(404).send("Not found: " + err);
