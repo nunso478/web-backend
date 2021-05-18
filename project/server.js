@@ -3,6 +3,7 @@ const { error } = require('console');
 const { json, response } = require('express');
 const express = require('express');
 const fs = require("fs");
+const { request } = require('http');
 const mysql2 = require('mysql2');
 const Sequelize = require('sequelize')
 //importar swagger
@@ -33,7 +34,7 @@ sequelize.authenticate()
         console.log("Unable to connect", err);
     });
 //Define a Model
-const product = sequelize.define('product', {
+const Product = sequelize.define('product', {
     //attributes
     seller_id: {
         type: Sequelize.INTEGER,
@@ -78,11 +79,11 @@ sequelize.sync({ force: false })
     });
 
 //Insert multiple instances in bulk
-/*product.bulkCreate([
-    {seller_id:"1",title:"LG",description:"LG G1 65 inch 4K",price:2999,url:"https://www.lg.com/a",views:4000,images:" ",comments:"",tags:""},
-    {seller_id:"2",title:"Samsung",description:"65” QN900A Samsung Neo QLED 8K",price:4999,url:"https://www.samsung.com/",views:10000,images:" ",comments:"",tags:""},
-    {seller_id:"3",title:"LG",description:"LG C1 77 inch 4K",price:2799,url:"https://www.lg.com/",views:9000,images:" ",comments:"",tags:""},
-    {seller_id:"4",title:"Samsung",description:"50 Class TU8000 Crystal UHD 4K",price:469,url:"https://www.samsung.com/",views:20000,images:" ",comments:"",tags:""}
+/*Product.bulkCreate([
+    {seller_id:"1",title:"LG",description:"LG G1 65 inch 4K",price:2999,url:"https://www.lg.com/a",views:4000,images:" ",comments:"Funciona",tags:"4k"},
+    {seller_id:"2",title:"Samsung",description:"65” QN900A Samsung Neo QLED 8K",price:4999,url:"https://www.samsung.com/",views:10000,images:"nao Funciona",comments:"nao Funciona",tags:"8k"},
+    {seller_id:"3",title:"LG",description:"LG C1 77 inch 4K",price:2799,url:"https://www.lg.com/",views:9000,images:" ",comments:"avariado",tags:"2k"},
+    {seller_id:"4",title:"Samsung",description:"50 Class TU8000 Crystal UHD 4K",price:469,url:"https://www.samsung.com/",views:20000,images:"",comments:"desligado",tags:"20k"}
     
 ]).then(function() {
     return product.findAll();
@@ -104,13 +105,13 @@ app.get('/product', (request, response) => {
 // Insert table product use post
 app.post('/product', (request, response) => {
     var details = request.body;
-    product.create(details).then(product => {
+    Product.create(details).then(product => {
         response.status(200).send("Inserted id: " + product.id);
     });
 });
 //via query mostra tabela product  ao por o caminho seller_id por numero 
-app.get('/product?seller_id=', (request, response) => {
-    product.findAll({
+app.get('/product', (request, response) => {
+    Product.findOne({
         where: {
             seller_id: request.query.seller_id
         }
@@ -122,14 +123,19 @@ app.get('/product?seller_id=', (request, response) => {
     });
 
 });
-app.put('/product/:views', (request, response) => {
-    var details = request.body;
-    product.update({details},{
+
+
+//Ver viwes utilizando params para encontrar o id do produto e fizendo incremento views.
+app.put('/product/:id/incrementViews', (request, response) => {
+
+    Product.findOne({
         where: {
-            views: request.params.views
-            
-        }}).then(product => {
-        response.send(product)
+            id: request.params.id
+        }
+    }).then(product => {
+        product.increment("views");
+        product.reload();
+        response.send("UPDATE SUCCESEFULL " + product.views);
     }).catch(err => {
         response.status(404).send("Not found: " + err);
 
@@ -137,13 +143,13 @@ app.put('/product/:views', (request, response) => {
 
 });
 //via query mostra tabela product  ao por o caminho tags 
-app.get('/product?tags=', (request, response) => {
-    product.findAll({
+app.get('/product', (request, response) => {
+    Product.findAll({
         where: {
             tags: request.query.tags
         }
     }).then(product => {
-        response.send(product)
+        response.send(product);
     }).catch(err => {
         response.status(404).send("Not found: " + err);
 
@@ -152,9 +158,28 @@ app.get('/product?tags=', (request, response) => {
 });
 //FIM DA PARTE A
 
+
 //INICIO DA PARTE B
 
+//selecionar produto
+app.get('/product',(request, response)=>{
+    Product.findOne({
+        where:{
+            id: request.query.id
+        }
+    }).then(product =>{
+        response.send(product)
+    }).catch(err => {
+        response.status(404).send("Not found: " + err);
 
+    });
+});
+
+
+
+
+
+//fim da parte B
 // metodo que arranca o servidor http e fica a escuta
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
