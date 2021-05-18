@@ -71,19 +71,19 @@ sequelize.sync({ force: false })
     .then(() => {
         console.log("Database & tables created!");
     }).then(function () {
-        return product.findAll();
+        return Product.findAll();
     }).then(function (products) {
         console.log(products);
     }).then(function () {
-        return product.findOne();
+        return Product.findOne();
     });
 
 //Insert multiple instances in bulk
 /*Product.bulkCreate([
-    {seller_id:"1",title:"LG",description:"LG G1 65 inch 4K",price:2999,url:"https://www.lg.com/a",views:4000,images:" ",comments:"Funciona",tags:"4k"},
-    {seller_id:"2",title:"Samsung",description:"65” QN900A Samsung Neo QLED 8K",price:4999,url:"https://www.samsung.com/",views:10000,images:"nao Funciona",comments:"nao Funciona",tags:"8k"},
-    {seller_id:"3",title:"LG",description:"LG C1 77 inch 4K",price:2799,url:"https://www.lg.com/",views:9000,images:" ",comments:"avariado",tags:"2k"},
-    {seller_id:"4",title:"Samsung",description:"50 Class TU8000 Crystal UHD 4K",price:469,url:"https://www.samsung.com/",views:20000,images:"",comments:"desligado",tags:"20k"}
+    {seller_id:"1",title:"LG",description:"LG G1 65 inch 4K",price:2999,url:"https://www.lg.com/a",views:4000,images:"C:\Users\Mickael\Desktop\images\tvLg",comments:"Funciona",tags:"4k"},
+    {seller_id:"2",title:"Samsung",description:"65” QN900A Samsung Neo QLED 8K",price:4999,url:"https://www.samsung.com/",views:10000,images:"C:\Users\Mickael\Desktop\images\samsung",comments:"nao Funciona",tags:"8k"},
+    {seller_id:"3",title:"LG",description:"LG C1 77 inch 4K",price:2799,url:"https://www.lg.com/",views:9000,images:"C:\Users\Mickael\Desktop\images\TvLg",comments:"avariado",tags:"2k"},
+    {seller_id:"4",title:"Samsung",description:"50 Class TU8000 Crystal UHD 4K",price:469,url:"https://www.samsung.com/",views:20000,images:"C:\Users\Mickael\Desktop\images\samsung",comments:"desligado",tags:"20k"}
     
 ]).then(function() {
     return product.findAll();
@@ -95,7 +95,7 @@ sequelize.sync({ force: false })
 app.get('/product', (request, response) => {
 
     //var user = request.query.user;
-    product.findAll().then(product => {
+    Product.findAll().then(product => {
         response.send(product)
     });
 
@@ -143,18 +143,19 @@ app.put('/product/:id/incrementViews', (request, response) => {
 
 });
 //via query mostra tabela product  ao por o caminho tags 
-app.get('/product', (request, response) => {
-    Product.findAll({
+app.get('/product/tags', (request, response) => {
+    
+  if (request.query.tags != undefined)
+  {
+      Product.findAll({
         where: {
             tags: request.query.tags
         }
     }).then(product => {
         response.send(product);
-    }).catch(err => {
-        response.status(404).send("Not found: " + err);
-
     });
-
+  }
+   
 });
 //FIM DA PARTE A
 
@@ -163,6 +164,7 @@ app.get('/product', (request, response) => {
 
 //selecionar produto
 app.get('/product',(request, response)=>{
+    
     Product.findOne({
         where:{
             id: request.query.id
@@ -174,8 +176,6 @@ app.get('/product',(request, response)=>{
 
     });
 });
-
-
 
 
 
