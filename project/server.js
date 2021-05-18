@@ -110,7 +110,8 @@ app.post('/product', (request, response) => {
     });
 });
 //via query mostra tabela product  ao por o caminho seller_id por numero 
-app.get('/product', (request, response) => {
+app.get('/product/seller_id', (request, response) => {
+
     Product.findOne({
         where: {
             seller_id: request.query.seller_id
@@ -144,18 +145,17 @@ app.put('/product/:id/incrementViews', (request, response) => {
 });
 //via query mostra tabela product  ao por o caminho tags 
 app.get('/product/tags', (request, response) => {
-    
-  if (request.query.tags != undefined)
-  {
-      Product.findAll({
-        where: {
-            tags: request.query.tags
-        }
-    }).then(product => {
-        response.send(product);
-    });
-  }
-   
+
+    if (request.query.tags != undefined) {
+        Product.findAll({
+            where: {
+                tags: request.query.tags
+            }
+        }).then(product => {
+            response.send(product);
+        });
+    }
+
 });
 //FIM DA PARTE A
 
@@ -163,22 +163,58 @@ app.get('/product/tags', (request, response) => {
 //INICIO DA PARTE B
 
 //selecionar produto
-app.get('/product',(request, response)=>{
-    
+app.get('/product/id', (request, response) => {
+
     Product.findOne({
-        where:{
+        where: {
             id: request.query.id
         }
-    }).then(product =>{
+    }).then(product => {
         response.send(product)
     }).catch(err => {
         response.status(404).send("Not found: " + err);
 
     });
 });
+app.delete('/product/:id', (request, response) => {
 
-
-
+    Product.destroy({
+        where: {
+            id: request.params.id
+        }
+    }).then(count => {
+        response.send("deleted: " + count);
+        //catch  verifica o erro
+    }).catch(err => {
+        response.status(404).send(err);
+    });
+});
+app.put('/product/:id/images', (request, response) => {
+    var details = request.body.images;
+    Product.update({images: details}, {
+        where: {
+            id: request.params.id
+        }
+    }).then(product => {
+        response.send("UPDATE SUCCESEFULL: " + product.images);
+        //catch  verifica o erro
+    }).catch(err => {
+        response.status(404).send(err);
+    });
+});
+app.put('/product/id/comments', (request, response) => {
+    var details = request.body.comments;
+    Product.update({comments: details}, {
+        where: {
+            id: request.query.id
+        }
+    }).then(product => {
+        response.send("UPDATE SUCCESEFULL: " + product.images);
+        //catch  verifica o erro
+    }).catch(err => {
+        response.status(404).send(err);
+    });
+});
 //fim da parte B
 // metodo que arranca o servidor http e fica a escuta
 app.listen(port, () => {

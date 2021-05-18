@@ -1,137 +1,130 @@
 {
-    "swagger":"2.0",
-    "info": {
-      "version":"1.0.0",
-      "title":"ficha8 API",
-      "description":"Ficha 8 API information",
-      "contact":{
-        "name":"TPSI-DWB"
-      },
-      "servers":["http://localhost:3000"]
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ficha8 API",
+    "description": "Ficha 8 API information",
+    "contact": {
+      "name": "TPSI-DWB"
     },
-    "paths": {
-      "/persons":{
-        "post": {
-          "tags":[
-              "person"
-          ],
-          "summary":"Create person",
-          "description":"this can only be done by logged in user.",
-          "operationID":"createPerson",
-          "produces":[
-            "application/xml",
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in":"body",
-              "name":"body",
-              "description":"Created person object",
-              "required": true,
-              "schema": {
-                  "$ref":"#/definitions/Person"
-              }
-            }
-          ],
-          "responses": {
-            "default": {
-                "description":"successfull operation"
+    "servers": [
+      "http://localhost:3000"
+    ]
+  },
+  "paths": {
+    "/persons": {
+      "post": {
+        "tags": [
+          "person"
+        ],
+        "summary": "Create person",
+        "description": "this can only be done by logged in user.",
+        "operationID": "createPerson",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created person object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Person"
             }
           }
-        },
-        "put":{
- 
-       "tags":[
-           "person"
-       ],
-       "summary": "Update a list of persons",
-       "description": "Returns a list of persons",
-       "produces":[
-        "application/xml",
-        "application/json"
-
-       ],           
-        "parameters":[
-            {
-                "in":"path",
-                "name":"id",
-                "description":"Person ID",
-                "required": true
-              
-              },
-              {
-                "in":"body",
-                "name":"body",
-                "description":"alter person object",
-                "required": true,
-                "schema": {
-                    "$ref":"#/definitions/Person"
-                }
-              }
-
-        ], 
-         "responses":{
-             "200":{
-                 "descrition": "Sucessfully  Update"
-            }
-               
-         }
-
-        },
-        "get": {
-            "tags":[
-                "person"
-            ],
-            "summary":"Gets a list of persons",
-            "description":"Returns a list of persons.",
-            "operationID":"createPerson",
-            "produces":[
-                "application/xml",
-                "application/json"
-              ],
-            "responses":{
-                "200":{
-                    "descrition":"succeful operation",
-                    "schema":{
-                           "$ref":"#/definitions/Person"
-                    }
-                },
-                "400":{
-                    "description": "bad request"
-                },
-                "404":{
-                    "description":"Not found"
-                }
-            }   
+        ],
+        "responses": {
+          "default": {
+            "description": "successfull operation"
+          }
         }
-    },
-    "/persons/{id}":{
-    
-    },
-    "definitions":{
-      "Person":{
-        "type":"object",
-        "properties": {
-          "id":{
-            "type":"integer",
-            "x-primery-key":true
+      },
+      "put": {
+        "tags": [
+          "person"
+        ],
+        "summary": "Update a list of persons",
+        "description": "Returns a list of persons",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Person ID",
+            "required": true
           },
-          "firstname":{
-            "type":"string"
+          {
+            "in": "body",
+            "name": "body",
+            "description": "alter person object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "Sucessfully  Update"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "person"
+        ],
+        "summary": "Gets a list of persons",
+        "description": "Returns a list of persons.",
+        "operationID": "createPerson",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation",
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
           },
-          "lastname":{
-            "type":"string"
+          "400": {
+            "description": "bad request"
           },
-          "profession":{
-            "type":"string"
-          },
-          "age":{
-            "type":"integer",
-            "format":"int64"
+          "404": {
+            "description": "Not found"
           }
         }
       }
-
-    } 
-}
+    },
+    "/persons/{id}": {},
+    "definitions": {
+      "Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "x-primery-key": true
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "profession": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    }
+  }
 }
