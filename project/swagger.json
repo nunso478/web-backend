@@ -39,7 +39,7 @@
           "default": {
             "description": "successfull operation"
           }
-        }  
+        }
       },
       "get": {
         "tags": [
@@ -216,7 +216,7 @@
         }
       }
     },
-    "/product/{id}/incrementViews":{
+    "/product/{id}/incrementViews": {
       "put": {
         "tags": [
           "product"
@@ -237,16 +237,102 @@
               "$ref": "#/definitions/product"
             }
           }
-            
-          
         ],
         "responses": {
           "200": {
             "descrition": "Sucessfully  Update"
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "id not found"
           }
         }
-    }
-  },
+      }
+    },
+    "/product/id/images": {
+      "put": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Update a list of product",
+        "description": "Returns a list of product",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Product ID",
+            "required": true
+           
+          },
+          {
+
+            "in": "body",
+            "name": "body",
+            "description": "Product Uddate",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "Sucessfully  Update"
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "id not found"
+          }
+        }
+      }
+    },
+    "/product/views":{
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Gets a list of product by views",
+        "description": "Get person by views.",
+        "operationID": "getProduct",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "views",
+            "in": "path",
+            "description": "views path ",
+            "required": true,
+            "type": "string"
+            
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "Tags not found"
+          }
+        }
+      }
+    },
     "definitions": {
       "product": {
         "type": "object",

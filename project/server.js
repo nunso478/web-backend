@@ -181,52 +181,34 @@ app.get('/product/tags', (request, response) => {
 
 
 //INICIO DA PARTE B
-
-//selecionar produto
-app.get('/product/id', (request, response) => {
-
+ app.get('/product', (request, response) => {
+    //if (request.query.id != undefined) {
     Product.findOne({
         where: {
             id: request.query.id
         }
     }).then(product => {
-        if(product == undefined)
-        {
-            response.status(404);
-            response.send("NOT FOUND id");
-        }
-        else
-        {
-             response.send(product);
-        }
-       
+        response.send(product)
     }).catch(err => {
         response.status(404).send({ "ERROR: ": err });
-
     });
+    //}
 });
 app.delete('/product/:id', (request, response) => {
-
     Product.destroy({
-        where: {
-            id: request.params.id
-        }
-    }).then(count => {
-        if(count == 0)
-        {
+        where: { id: request.params.id }
+    }).then(affectedRows => {
+        if (affectedRows == 0) {
             response.status(404);
-            response.send("NOT FOUND id");
+            response.end("ID not found");
+        } else {
+            response.send("Product deleted " + affectedRows)
         }
-        else
-        {
-            response.send("deleted: " + count);
-        }
-        
-        //catch  verifica o erro
     }).catch(err => {
-        response.status(404).send({ "ERROR: ": err });
+        response.status(400).send({ "Error": err });
     });
 });
+
 app.put('/product/:id/images', (request, response) => {
     var details = request.body.images;
     Product.update({ images: details }, {
@@ -234,13 +216,56 @@ app.put('/product/:id/images', (request, response) => {
             id: request.params.id
         }
     }).then(product => {
-        response.send("UPDATE SUCCESEFULL: " + product.images);
-        //catch  verifica o erro
+        if (request.query.id != undefined) {
+            response.status(404);
+            response.end("ID not found");
+        } else {
+            response.send("UPDATE SUCCESEFULL " + details);
+        }
     }).catch(err => {
         response.status(404).send({ "ERROR: ": err });
+
     });
 });
+ 
+app.put('/product/', (request, response) => {
+    var details = request.query.id;
+    var newComment = request.body.comments;
+    Product.findOne({
+        where: {
+            id: details
+        }
+    }).then(product => {
+        console.log(product.comments);
 
+        var comments = JSON.parse(product.comments);
+        console.log(comments);
+        comments.comments = comments.comments + ", " + newComment;
+
+        Product.update({ "comments": comments.comments }, {
+            where: {
+                id: details
+            }
+        }).then(comments => {
+            response.send({ "Comentario atualizado: ": comments.comments })
+        }).catch(err => {
+            response.status(404).send({ "ERROR: ": err });
+
+        });
+    });
+});
+app.get('/product/views', (request, response) => {
+
+    Product.findAll({
+        order: [
+            ['views', 'ASC']
+        ],
+    }).then(views => {
+        response.send({ "views ascendente ": views })
+    }).catch(err => {
+        response.status(404).send({"ERROR: ": err });
+    });
+});
 //fim da parte B
 // metodo que arranca o servidor http e fica a escuta
 app.listen(port, () => {
