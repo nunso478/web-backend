@@ -93,9 +93,12 @@ sequelize.sync({ force: false })
 
 //show list  all table Product 
 app.get('/product', (request, response) => {
-     
+
     Product.findAll().then(product => {
         response.send(product)
+    }).catch(err => {
+        response.status(404).send({ "ERROR: ": err });
+
     });
 
 });
@@ -104,9 +107,7 @@ app.get('/product', (request, response) => {
 app.post('/product', (request, response) => {
     var details = request.body;
     Product.create(details).then(product => {
-        if (!product) {
-            response.status(404).send({ error: 'No user' });
-        }
+
         response.status(200).send("Inserted id: " + product.id);
     }).catch(err => {
         response.status(404).send({ "ERROR: ": err });
@@ -115,21 +116,20 @@ app.post('/product', (request, response) => {
 });
 //via query mostra tabela product  ao por o caminho seller_id por numero 
 app.get('/product/seller_id', (request, response) => {
-
-    Product.findOne({
+    
+    Product.findAll({
         where: {
             seller_id: request.query.seller_id
         }
     }).then(product => {
         if (product == 0) {
             response.status(404);
-            response.end('id not found ');
+            response.send('not found seller_id');
         }
-        else
-        {
-             response.send(product);
+        else {
+            response.send(product);
         }
-       
+
     }).catch(err => {
         response.status(404).send({ "ERROR: ": err });
 
@@ -156,15 +156,25 @@ app.put('/product/:id/incrementViews', (request, response) => {
 });
 //via query mostra tabela product  ao por o caminho tags 
 app.get('/product/tags', (request, response) => {
-    if (request.query.tags != undefined) {
-        Product.findAll({
-            where: {
-                tags: request.query.tags
-            }
-        }).then(product => {
+
+    Product.findAll({
+        where: {
+            tags: request.query.tags
+        }
+    }).then(product => {
+        if (product == 0) {
+            response.status(404);
+            response.send("NOT FOUND TAGS");
+        }
+        else {
             response.send(product);
-        });
-    }
+        }
+
+    }).catch(err => {
+        response.status(404).send({ "ERROR: ": err });
+
+    });
+
 
 });
 //FIM DA PARTE A
@@ -180,7 +190,16 @@ app.get('/product/id', (request, response) => {
             id: request.query.id
         }
     }).then(product => {
-        response.send(product)
+        if(product == undefined)
+        {
+            response.status(404);
+            response.send("NOT FOUND id");
+        }
+        else
+        {
+             response.send(product);
+        }
+       
     }).catch(err => {
         response.status(404).send({ "ERROR: ": err });
 
@@ -193,7 +212,16 @@ app.delete('/product/:id', (request, response) => {
             id: request.params.id
         }
     }).then(count => {
-        response.send("deleted: " + count);
+        if(count == 0)
+        {
+            response.status(404);
+            response.send("NOT FOUND id");
+        }
+        else
+        {
+            response.send("deleted: " + count);
+        }
+        
         //catch  verifica o erro
     }).catch(err => {
         response.status(404).send({ "ERROR: ": err });
@@ -212,19 +240,7 @@ app.put('/product/:id/images', (request, response) => {
         response.status(404).send({ "ERROR: ": err });
     });
 });
-app.put('/product/id/comments', (request, response) => {
-    var details = request.body.comments;
-    Product.update({ comments: details }, {
-        where: {
-            id: request.query.id
-        }
-    }).then(product => {
-        response.send("UPDATE SUCCESEFULL: " + product.images);
-        //catch  verifica o erro
-    }).catch(err => {
-        response.status(404).send({ "ERROR: ": err });
-    });
-});
+
 //fim da parte B
 // metodo que arranca o servidor http e fica a escuta
 app.listen(port, () => {

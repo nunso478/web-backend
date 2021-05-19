@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "ficha8 API",
-    "description": "Ficha 8 API information",
+    "title": "ficha9 API",
+    "description": "Ficha 9 API information",
     "contact": {
       "name": "TPSI-DWB"
     },
@@ -18,7 +18,7 @@
           "product"
         ],
         "summary": "Create product",
-        "description": "this can only be done by logged in user.",
+        "description": "this can only be done by logged in Product.",
         "operationID": "createProduct",
         "produces": [
           "application/xml",
@@ -39,8 +39,184 @@
           "default": {
             "description": "successfull operation"
           }
-        }
+        }  
       },
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Gets a list of product",
+        "description": "Returns a list of product.",
+        "operationID": "createproduct",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "delete": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Delete a list of protuct",
+        "description": "Returns a list of protuct Deleted",
+        "operationID": "deleteProduct",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Delete product",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation"
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "id not found"
+          }
+        }
+      }
+    },
+    "/product/id": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Gets a list of product by id",
+        "description": "Get person by ID.",
+        "operationID": "getProduct",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "the id that needs to be fetched",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "id not found"
+          }
+        }
+      }
+    },
+    "/product/tags": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Gets a list of product by tags",
+        "description": "Get person by tags.",
+        "operationID": "getProduct",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Tags path query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "Tags not found"
+          }
+        }
+      }
+    },
+    "/product/seller_id": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Gets a list of product by seller_id",
+        "description": "Get person by tags.",
+        "operationID": "getProduct",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "seller_id",
+            "in": "query",
+            "description": "seller_id path query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "descrition": "succeful operation",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          },
+          "400": {
+            "description": "invalid id suplied"
+          },
+          "404": {
+            "description": "Tags not found"
+          }
+        }
+      }
+    },
+    "/product/{id}/incrementViews":{
       "put": {
         "tags": [
           "product"
@@ -56,196 +232,63 @@
             "in": "path",
             "name": "id",
             "description": "Product ID",
-            "required": true
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "alter product object",
             "required": true,
             "schema": {
               "$ref": "#/definitions/product"
             }
           }
+            
+          
         ],
         "responses": {
           "200": {
             "descrition": "Sucessfully  Update"
           }
         }
-      },
-      "get": {
-        "tags": [
-          "product"
-        ],
-        "summary": "Gets a list of product",
-        "description": "Returns a list of product.",
-        "operationID": "createproduct",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        
-        "responses": {
-          "200": {
-            "descrition": "succeful operation",
-            "schema": {
-              "$ref": "#/definitions/product"
-            }
+    }
+  },
+    "definitions": {
+      "product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "x-primery-key": true
           },
-          "400": {
-            "description": "bad request"
+          "seller_id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "404": {
-            "description": "Not found"
+          "title": {
+            "type": "string"
+          },
+          "profession": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "decimal"
+          },
+          "url": {
+            "type": "string"
+          },
+          "views": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "images": {
+            "type": "JSON"
+          },
+          "comments": {
+            "type": "JSON"
+          },
+          "tags": {
+            "type": "JSON"
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "product"
-        ],
-        "summary": "Delete a list of protuct",
-        "description": "Returns a list of protuct Deleted",
-        "operationID": "deleteProduct",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "body",
-            "description": "Delete product",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/product"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "descrition": "succeful operation"
-          }
-        }
-        } 
-        },
-        "/product/{id}": {
-          "get": {
-            "tags": [
-              "product"
-            ],
-            "summary": "Gets a list of product by id",
-            "description": "Get person by ID.",
-            "operationID": "getProduct",
-            "produces": [
-              "application/xml",
-              "application/json"
-            ],
-            "parameters": [
-              {
-                "name": "id",
-                "in": "path",
-                "description": "the id that needs to be fetched",
-                "required": true,
-                "type": "string"
-              }
-            ],
-            "responses": {
-              "200": {
-                "descrition": "succeful operation",
-                "schema": {
-                  "$ref": "#/definitions/product"
-                }
-              },
-              "400": {
-                "description": "invalid id suplied"
-              },
-              "404": {
-                "description": "id not found"
-              }
-            }
-          },
-          "delete": {
-            "tags": [
-              "product"
-            ],
-            "summary": "Delete a list of protuct",
-            "description": "Returns a list of protuct Deleted",
-            "operationID": "deleteProduct",
-            "produces": [
-              "application/xml",
-              "application/json"
-            ],
-            "parameters": [
-              {
-                "name": "id",
-                "in": "path",
-                "description": "Delete product",
-                "required": true,
-                "type": "string",
-                "schema": {
-                  "$ref": "#/definitions/product"
-                }
-              }
-            ],
-            "responses": {
-              "200": {
-                "descrition": "succeful operation"
-              },
-              "400": {
-                "description": "invalid id suplied"
-              },
-              "404": {
-                "description": "id not found"
-              }
-            }
-          }
-        },
-        "definitions": {
-          "product": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "x-primery-key": true
-              },
-              "seller_id": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "title": {
-                "type": "string"
-              },
-              "profession": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "price": {
-                "type": "decimal"
-              },
-              "url": {
-                "type": "string"
-              },
-              "views": {
-                "type": "integer",
-                "format": "int64"
-              },
-              "images": {
-                "type": "JSON"
-              },
-              "comments": {
-                "type": "JSON"
-              },
-              "tags": {
-                "type": "JSON"
-              }
-            }
-          }
-        }
-      
+      }
     }
   }
+}
