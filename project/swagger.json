@@ -85,6 +85,7 @@
           "application/xml",
           "application/json"
         ],
+        
         "responses": {
           "200": {
             "descrition": "succeful operation",
@@ -99,16 +100,14 @@
             "description": "Not found"
           }
         }
-      }
-    },
-    "/product/{id}": {
-      "get": {
+      },
+      "delete": {
         "tags": [
           "product"
         ],
-        "summary": "Gets a list of product by id",
-        "description": "Get person by ID.",
-        "operationID": "getProduct",
+        "summary": "Delete a list of protuct",
+        "description": "Returns a list of protuct Deleted",
+        "operationID": "deleteProduct",
         "produces": [
           "application/xml",
           "application/json"
@@ -116,70 +115,137 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "description": "the id that needs to be fetched",
+            "in": "body",
+            "description": "Delete product",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
           }
         ],
         "responses": {
           "200": {
-            "descrition": "succeful operation",
-            "schema": {
-              "$ref": "#/definitions/product"
+            "descrition": "succeful operation"
+          }
+        }
+        } 
+        },
+        "/product/{id}": {
+          "get": {
+            "tags": [
+              "product"
+            ],
+            "summary": "Gets a list of product by id",
+            "description": "Get person by ID.",
+            "operationID": "getProduct",
+            "produces": [
+              "application/xml",
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "the id that needs to be fetched",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "descrition": "succeful operation",
+                "schema": {
+                  "$ref": "#/definitions/product"
+                }
+              },
+              "400": {
+                "description": "invalid id suplied"
+              },
+              "404": {
+                "description": "id not found"
+              }
             }
           },
-          "400": {
-            "description": "invalid id suplied"
-          },
-          "404": {
-            "description": "id not found"
+          "delete": {
+            "tags": [
+              "product"
+            ],
+            "summary": "Delete a list of protuct",
+            "description": "Returns a list of protuct Deleted",
+            "operationID": "deleteProduct",
+            "produces": [
+              "application/xml",
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "Delete product",
+                "required": true,
+                "type": "string",
+                "schema": {
+                  "$ref": "#/definitions/product"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "descrition": "succeful operation"
+              },
+              "400": {
+                "description": "invalid id suplied"
+              },
+              "404": {
+                "description": "id not found"
+              }
+            }
+          }
+        },
+        "definitions": {
+          "product": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "x-primery-key": true
+              },
+              "seller_id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "title": {
+                "type": "string"
+              },
+              "profession": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "price": {
+                "type": "decimal"
+              },
+              "url": {
+                "type": "string"
+              },
+              "views": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "images": {
+                "type": "JSON"
+              },
+              "comments": {
+                "type": "JSON"
+              },
+              "tags": {
+                "type": "JSON"
+              }
+            }
           }
         }
-      }
-    },
-    "definitions": {
-      "product": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "x-primery-key": true
-          },
-          "seller_id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "title": {
-            "type": "string"
-          },
-          "profession": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "price": {
-            "type": "decimal"
-          },
-          "url": {
-            "type": "string"
-          },
-          "views": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "images": {
-            "type": "JSON"
-          },
-          "comments": {
-            "type": "JSON"
-          },
-          "tags": {
-            "type": "JSON"
-          }
-        }
-      }
+      
     }
   }
-}
