@@ -185,7 +185,7 @@
           "product"
         ],
         "summary": "Gets a list of product by seller_id",
-        "description": "Get person by tags.",
+        "description": "Get person by seller_id.",
         "operationID": "getProduct",
         "produces": [
           "application/xml",
@@ -274,7 +274,7 @@
 
             "in": "body",
             "name": "body",
-            "description": "Product Uddate",
+            "description": "Product Uddate images",
             "required": true,
             "schema": {
               "$ref": "#/definitions/product"
