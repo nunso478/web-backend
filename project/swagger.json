@@ -121,7 +121,7 @@
           {
             "name": "id",
             "in": "query",
-            "description": "the id that needs to be fetched",
+            "description": "the path id",
             "required": true,
             "type": "string"
           }
@@ -336,7 +336,7 @@
       }
     },
     "definitions": {
-      "product": {
+      "Product": {
         "type": "object",
         "properties": {
           "id": {
