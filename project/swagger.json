@@ -294,6 +294,9 @@
         }
       }
     },
+    "/product/comments":{
+
+    },
     "/product/views":{
       "get": {
         "tags": [
