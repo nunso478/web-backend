@@ -208,7 +208,7 @@ app.delete('/product/:id', (request, response) => {
         response.status(400).send({ "Error": err });
     });
 });
-
+// UPDATE IMAGES  use id path to table and update images 
 app.put('/product/:id/images', (request, response) => {
     var details = request.body.images;
     Product.update({ images: details }, {
@@ -254,6 +254,7 @@ app.put('/product/', (request, response) => {
         });
     });
 });
+//show tables use path views ASC
 app.get('/product/views', (request, response) => {
 
     Product.findAll({
