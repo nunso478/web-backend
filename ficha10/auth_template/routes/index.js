@@ -1,10 +1,10 @@
-module.exports = function(app, passport) {
+module.exports = function (app, passport) {
 
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-    app.get('/signup', function(req, res) {
-        res.render('signup.ejs',{message:req.flash('signupMessage')}); // load the index.ejs file
+    app.get('/signup', function (req, res) {
+        res.render('signup.ejs', { message: req.flash('signupMessage') }); // load the index.ejs file
     });
 
     // =====================================
@@ -12,13 +12,14 @@ module.exports = function(app, passport) {
     // =====================================
     // TODO 1 - show the login form GET
     // render the page and pass in any flash data if it exists
-
-
+    app.get('/login', function (req, res) {
+        res.render('login.ejs', { message: req.flash('LoginMessage') }); // load the index.ejs file
+    });
     // TODO 2 - process the login form POST
     // redirect to the secure profile section
     // redirect back to the signup page if there is an error
     // allow flash messages 
-    
+
 
     // =====================================
     // SIGNUP ==============================
@@ -30,7 +31,11 @@ module.exports = function(app, passport) {
     // redirect to the secure profile section
     // redirect back to the signup page if there is an error
     // allow flash messages
-
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect: '/profile',
+        failureRedirect: '/signup',
+        failureFlash: true
+    }));
     // =====================================
     // PROFILE SECTION =====================
     // =====================================

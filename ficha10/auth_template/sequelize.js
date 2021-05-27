@@ -11,6 +11,7 @@ const sequelize = new Sequelize('ficha10', 'root', '', {
         idle:10000
     }
 });
+const Users = UserModels(sequelize,Sequelize)
 sequelize.authenticate()
     .then(() => {
         console.log("connection has been estalished");
@@ -18,7 +19,10 @@ sequelize.authenticate()
     .catch(err => {
         console.log("Unable to connect", err);
     });
-
+sequelize.sync({ force: false })
+    .then(() => {
+        console.log("Tables Created");
+    })
 module.exports = {
     Users
 }

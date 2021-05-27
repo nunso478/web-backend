@@ -1,8 +1,10 @@
 var LocalStrategy = require('passport-local').Strategy;
 
+
+
 // expose this function to our app using module.exports
 module.exports = function (passport) {
-
+    const Users = require('../sequelize').Users;
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -17,6 +19,15 @@ module.exports = function (passport) {
     // used to deserialize the user
     passport.deserializeUser(function (id, done) {
         // TODO Sequelize query to return the user from the DB    
+        Users.findOne({
+            where:{
+                id:id
+            }
+        }).then(result => {
+            done(null,result)
+        }).catch(err =>{
+            done(err,null);
+        })
     });
 
     // =========================================================================
@@ -33,7 +44,27 @@ module.exports = function (passport) {
     },
         function (req, email, password, done) {
             // find a user whose email is the same as the forms email
-            // we are checking to see if the user trying to login already exists            
+            // we are checking to see if the user trying to login already exists           
+            Users.findOne({
+                where: {
+                    email: email
+                }
+            }).then(result => {
+                if(result == null)
+                {
+                    Users.create({"email":email,'password':password})
+                    .then(user =>{
+                        return done(null,user);
+                    })
+                }
+                else
+                {
+                    return done(null,false,req.flash('signupMessage',"that e-mail is already taken"));
+                }
+            }).catch(err => {
+                return done(err);
+            });
+
         }));
     // =========================================================================
     // TODO 2- LOCAL LOGIN =============================================================
