@@ -3,8 +3,8 @@ module.exports = function (app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-    app.get('/signup', function (req, res) {
-        res.render('signup.ejs', { message: req.flash('signupMessage') }); // load the index.ejs file
+    app.get('/', function (req, res) {
+        res.render('index.ejs'); // load the index.ejs file
     });
 
     // =====================================
@@ -26,6 +26,10 @@ module.exports = function (app, passport) {
     // =====================================
     // TODO 3 - show the signup form
     // render the page and pass in any flash data if it exists GET
+    app.get('/signup', function (req, res) {
+        res.render('signup.ejs', { message: req.flash('signupMessage') });  
+    });
+
 
     // TODO 4- process the signup form POST
     // redirect to the secure profile section
