@@ -12,3 +12,11 @@ exports.getUsers= function (req, res, next) {
     
 
 }
+
+exports.getTest= function (req, res, next) {
+    
+    res.send("teste");
+
+    
+
+}

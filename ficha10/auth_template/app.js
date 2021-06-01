@@ -4,8 +4,6 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var app = express();
-var userRouter = require('./routes/users.js');
-app.use('/users',userRouter);
 
 
 
@@ -26,7 +24,12 @@ function testMiddleware(req,res,next){
 // default routes ======================================================================
 require('./controllers/passportController')(passport); // pass passport for configuration
 require('./routes/index.js')(app, passport); // load our routes and pass in our app and fully configured passport
+var userRouter = require('./routes/users.js');
+const router = require('./routes/users.js');
  
+app.use('/users',userRouter);
+app.use('/test',userRouter);
+
 // TODO Add custom routes ======================================================================
 
 // express server
