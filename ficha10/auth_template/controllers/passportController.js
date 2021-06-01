@@ -20,13 +20,13 @@ module.exports = function (passport) {
     passport.deserializeUser(function (id, done) {
         // TODO Sequelize query to return the user from the DB    
         Users.findOne({
-            where:{
-                id:id
+            where: {
+                id: id
             }
         }).then(result => {
-            done(null,result)
-        }).catch(err =>{
-            done(err,null);
+            done(null, result)
+        }).catch(err => {
+            done(err, null);
         })
     });
 
@@ -50,16 +50,14 @@ module.exports = function (passport) {
                     email: email
                 }
             }).then(result => {
-                if(result == null)
-                {
-                    Users.create({"email":email,'password':password})
-                    .then(user =>{
-                        return done(null,user);
-                    })
+                if (result == null) {
+                    Users.create({ "email": email, 'password': password })
+                        .then(user => {
+                            return done(null, user);
+                        })
                 }
-                else
-                {
-                    return done(null,false,req.flash('signupMessage',"that e-mail is already taken"));
+                else {
+                    return done(null, false, req.flash('signupMessage', "that e-mail is already taken"));
                 }
             }).catch(err => {
                 return done(err);
@@ -78,6 +76,25 @@ module.exports = function (passport) {
         passwordField: 'password',
         passReqToCallback: true // allows us to pass back the entire request to the callback
     },
-        function (req, email, password, done) { // callback with email and password from our form                        
+        function (req, email, password, done) { // callback with email and password from our form  
+            Users.findOne({
+                where: {
+                    email: email
+                     
+                }
+            }).then(user => {
+                if (user.password == password) {
+                   return done(null, user);
+                }
+                else {
+                    return done(null, false, req.flash('LoginMessage', "password not valid"));
+                }
+            }).catch(err => {
+                return done(err);
+            });
+
+
+
+
         }));
 };

@@ -4,6 +4,10 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var app = express();
+var userRouter = require('./routes/users.js');
+app.use('/users',userRouter);
+
+
 
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(express.json()); // get information from html forms
@@ -14,11 +18,15 @@ app.use(session({ secret: 'cat', cookie: { maxAge: 60000 } })); // Use the sessi
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
+app.use(testMiddleware);
+function testMiddleware(req,res,next){
+    console.log("teste middleware");
+    return next();
+}
 // default routes ======================================================================
 require('./controllers/passportController')(passport); // pass passport for configuration
 require('./routes/index.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
+ 
 // TODO Add custom routes ======================================================================
 
 // express server
