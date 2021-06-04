@@ -4,7 +4,8 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var app = express();
-
+var dotenv = require("dotenv");
+dotenv.config();
 
 
 app.use(cookieParser()); // read cookies (needed for auth)

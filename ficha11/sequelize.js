@@ -1,9 +1,10 @@
 // TODO Implement all the models and business logic using sequelize
 const Sequelize = require('sequelize');
 const UserModels = require('./models/Users')
-const sequelize = new Sequelize('ficha10', 'root', '', {
+//CONNECTION pool
+const sequelize = new Sequelize(process.env.DB_SCHEMA,process.env.DB_USER,process.env.DB_PASS, {
+    host:process.env.DB_HOST,
     dialect: 'mysql',
-    host:'localhost',
     pool: {
         max:10,
         min:0,
