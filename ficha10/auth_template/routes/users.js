@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 var userController = require('../controllers/userscontrollers');
 router.use(isLoggedIn);
 router.get('/',isLoggedIn,userController.getUsers);
