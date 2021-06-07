@@ -5,7 +5,7 @@ exports.postProduct = function (request, response, next) {
     var details = request.body;
     Product.create(details)
         .then(product => {
-            if (details == null) {
+            if (details == undefined) {
                 response.status(404);
                 response.end(error.message);
             }
