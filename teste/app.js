@@ -5,6 +5,8 @@ const fs = require("fs");
 const { request } = require('http');
 const express = require('express');
 var app = express();
+var dotenv = require("dotenv");
+dotenv.config();
 // definir a porta do servidor http
 const port = 3000
 app.use(express.json()); // get information from html forms

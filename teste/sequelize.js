@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const ProductModels = require('./models/Product')
-const sequelize = new Sequelize('ficha10', 'root', '', {
+const sequelize = new Sequelize(process.env.DB_SCHEMA,process.env.DB_USER,process.env.DB_PASS, {
     dialect: 'mysql',
-    host: 'localhost',
+    host: process.env.DB_HOST,
     pool: {
         max: 10,
         min: 0,
