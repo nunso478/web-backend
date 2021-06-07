@@ -6,4 +6,4 @@ npm install sequelize--save
 npm install  mysql2 --save
 npm install express --save
 npm init
- npm install ejs
+npm install ejs
