@@ -77,3 +77,21 @@ exports.deleteProduct = function (request, response) {
         response.status(400).send({ "Error": err });
     });
 };
+exports.putProductImage = function (request, response) {
+    var details = request.body.images;
+    Product.update({ images: details }, {
+        where: {
+            id: request.params.id
+        }
+    }).then(product => {
+        if (request.query.id == undefined) {
+            response.status(404);
+            response.end("ID not found");
+        } else {
+            response.send("UPDATE SUCCESEFULL " + details);
+        }
+    }).catch(err => {
+        response.status(404).send({ "ERROR: ": err });
+
+    });
+};
