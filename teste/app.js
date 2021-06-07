@@ -1,4 +1,3 @@
-//importar o express 
 //importar o express
 const { error } = require('console');
 const { json, response } = require('express');
@@ -16,8 +15,6 @@ var productRouter = require('./routes/product.js');
 const router = require('./routes/product.js');
 app.use('/product',productRouter);
 //app.use('/test',userRouter);
-
-
 // metodo que arranca o servidor http e fica a escuta
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
