@@ -8,3 +8,4 @@ npm install express --save
 npm init
 npm install ejs
 npm install dotenv --save
+npm install express-generator
