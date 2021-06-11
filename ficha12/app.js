@@ -1,8 +1,13 @@
 var createError = require('http-errors');
+var dotenv = require("dotenv");
+dotenv.config();
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var flash = require('connect-flash');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,10 +17,11 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(session({ secret: 'cat', cookie: { maxAge: 60000 } })); // Use the session middleware
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
