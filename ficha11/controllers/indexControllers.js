@@ -16,7 +16,7 @@ exports.signup = function (req, res) {
         if (result == null) {
             Users.create({ "email": email, 'password': password })
                 .then(user => {
-                    var token = generateAccessToken(email, password)
+                    var token = generateAccessToken(email, password);
                     req.session.User = user;
                     req.session.token = token;
                     res.redirect('/profile');
@@ -49,12 +49,12 @@ exports.login = function (req, res) {
             res.redirect('/login');
         }
         else {
-            var token = generateAccessToken(email, password)
+            var token = generateAccessToken(email, password);
             req.session.User = user;
             req.session.token = token;
             res.cookie('acces token', token, {
                 expires: new Date(Date.now() + 8 * 3600000)
-            }).redirect('/profile')
+            }).redirect('/profile');
         }
     }).catch(err => {
         req.flash("LoginMessage", err);

@@ -23,13 +23,13 @@ function testMiddleware(req,res,next){
     return next();
 }
 // default routes ======================================================================
-require('./controllers/passportController')(passport); // pass passport for configuration
-require('./routes/index.js')(app, passport); // load our routes and pass in our app and fully configured passport
-var userRouter = require('./routes/users.js');
-const router = require('./routes/users.js');
+
  
-app.use('/users',userRouter);
-app.use('/test',userRouter);
+//var userRouter = require('./routes/index.js');
+ 
+ 
+ 
+//app.use('/test',userRouter);
 
 // TODO Add custom routes ======================================================================
 
