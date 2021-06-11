@@ -14,6 +14,8 @@ function authenticateTokenFromSession(req, res, next) {
         next();
     });
 }
+
+
 router.get('/', function (req, res) {
     res.render('index.ejs'); // load the index.ejs file
 });
@@ -23,7 +25,6 @@ router.get('/login', function (req, res) {
 router.get('/signup', function (req, res) {
     res.render('signup.ejs', { message: req.flash('signupMessage') });
 });
-
 router.get('/profile', authenticateTokenFromSession, function (req, res) {
     res.render('profile.ejs', { user: req.user }); // get the user out of session and pass to template
 });
