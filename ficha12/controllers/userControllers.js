@@ -1,6 +1,12 @@
 const User = require('../sequelize').Users;
 var jwt = require('jsonwebtoken');
-
+exports.getUsers = function(req,res,next){
+    User.findAll()
+    .then(users => {
+        res.send(users);
+    });
+};
+/*
 function generateAccessToken(email, password) {
     var token = jwt.sign({ email, password }, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
     return token;
@@ -60,4 +66,4 @@ exports.login = function (req, res) {
         req.flash("LoginMessage", err);
         res.redirect('/login')
     });
-}
+}*/
