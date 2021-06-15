@@ -18,18 +18,24 @@ router.get('/login', function (req, res) {
 router.get('/signup', function (req, res) {
     res.render('signup.ejs', { message: req.flash('SignupMessage') });
 });
+
 router.get('/profile', authenticateTokenFromSession, function (req, res) {
     res.render('profile.ejs', { 
         user: req.session.user, 
         token: req.session.token
     }); // get the user out of session and pass to template
 });
+
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
+
 });
+
+
 router.post('/login', indexController.login);
 router.post('/signup', indexController.signup);
+
 
 function authenticateTokenFromSession(req, res, next) {
     const token = req.session.token;

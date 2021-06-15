@@ -6,6 +6,20 @@ exports.getUsers = function(req,res,next){
         res.send(users);
     });
 };
+exports.deleteUsers = function (request, response) {
+    User.destroy({
+        where: { id: request.params.id }
+    }).then(affectedRows => {
+        if (affectedRows == 0) {
+            response.status(404);
+            response.end("ID not found");
+        } else {
+            response.send("Product deleted " + affectedRows)
+        }
+    }).catch(err => {
+        response.status(400).send({ "Error": err });
+    });
+};
 /*
 function generateAccessToken(email, password) {
     var token = jwt.sign({ email, password }, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
