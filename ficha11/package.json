@@ -1,13 +1,10 @@
 {
-  "name": "auth",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "name": "ficha12",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "connect": "^3.7.0",
