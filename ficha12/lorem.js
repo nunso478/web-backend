@@ -3,7 +3,7 @@ var data = 'O Lorem Ipsum é um texto modelo da indústria tipográfica e de imp
 
 //var str = '"hello"my"world"';
 
-for(let index = 0; index < 1000000000000; index++)
+for(let index = 0; index < 100000; index++)
 {
   fs.appendFileSync('text.txt',data);  
 }

@@ -7,20 +7,24 @@ function readfile(path) {
     });
     
 }
-function readFilestream(path)
+function readFileStream(path)
 {
+
     var readerStream = fs.createReadStream(path);
-    readFilestream.setEncoding('UTF8');
+    var writerStream = fs.createWriteStream('copy.txt');
+    readerStream.setEncoding('utf-8');
     readerStream.on('data', function(chunk) {
-        data += chunk;
+        //data += chunk;
+        writerStream.write(chunk,'utf-8');
     });
-    readFilestream.on('end', function(){
-        console.log(data);
+    readerStream.on('end', function(){      
+        writerStream.end();
     });
-    readFilestream.on('error', function(err){
+    readerStream.on('error', function(err){
         console.log(err.stack);
     })
 }
 
-
-readfile("text.txt");
+//readFile("text.txt");
+readFileStream("text.txt");
+var x = 0;
