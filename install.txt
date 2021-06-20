@@ -2,7 +2,7 @@ npm install express-generator
 npm install --save-dev nodemon 
 npm install swagger-jsdoc
 npm install swagger-ui-express
-npm install sequelize--save 
+npm install sequelize --save 
 npm install  mysql2 --save
 npm install express --save
 npm init
