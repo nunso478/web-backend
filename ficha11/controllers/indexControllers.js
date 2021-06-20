@@ -8,13 +8,14 @@ function generateAccessToken(email, password) {
 exports.signup = function (req, res) {
     var { email } = req.body;
     var { password } = req.body;
+    var { name } = req.body;
     User.findOne({
         where: {
             email: email
         }
     }).then(result => {
         if (result == null) {
-            User.create({ "email": email, 'password': password })
+            User.create({ "email": email, 'password': password, "name": name })
                 .then(user => {
                     const token = generateAccessToken(email, password);
                     req.session.user = user;

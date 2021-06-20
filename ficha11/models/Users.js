@@ -8,7 +8,8 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
         password: type.STRING,
-        email: type.STRING
+        email: type.STRING,
+        name: type.STRING
 
     });
 }

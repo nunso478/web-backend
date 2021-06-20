@@ -12,6 +12,8 @@ router.use(authenticateTokenFromHeadrs);
 /* GET users listing. */
  router.get('/',userController.getUsers)
  router.delete('/:id',userController.deleteUsers)
+
+ 
 function authenticateTokenFromHeadrs(req,res,next){
    const authHeader = req.headers['authorization'];
    const token = authHeader && authHeader.split(' ')[1];
