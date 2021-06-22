@@ -1,5 +1,6 @@
 const Product = require('../sequelize').Product;
 
+
 // Insert table product use post
 exports.postProduct = function (request, response, next) {
     var details = request.body;
