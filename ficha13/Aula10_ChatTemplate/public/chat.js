@@ -26,5 +26,11 @@ $(function () {
         chatroom.append('<p class="message">' + data.username + "has connected "  +  '</p>');
         
     });
+
+    socket.on('user_disconnected',(data) =>{
+        message.val('');
+        chatroom.append('<p class="message">' + data.username + "has disconnected "  +  '</p>');
+        
+    });
     
 });

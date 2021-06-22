@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 
 
     socket.on('disconnect', () => {
-        console.log(socket.username + "User has desconnected");
+        io.sockets.emit('user_disconnected', { username: socket.username });
     });
 
     socket.on('send_message', (data) => {
