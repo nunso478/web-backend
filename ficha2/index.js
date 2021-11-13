@@ -4,7 +4,7 @@
 //outputs
 //imc
 // assinatura da funçao
-/* function calcularIMC(weigh,height){
+ /* function calcularIMC(weigh,height){
     var imc = weigh / Math.pow(height,2);
     return imc;
 }
@@ -125,10 +125,10 @@ console.log("tempo de trabalho: " + hours + ":"+ minutes +":"+ remainderminutes)
 
 var seconds = 0;
  
-}
+}*/
 calcularWorking(7,30,0,16,0,0);
 //exercicio 6 ==========================================
-/*function drawRectanngle(width,height){
+function drawRectanngle(width,height){
   
    
     var line = "";
@@ -143,7 +143,8 @@ calcularWorking(7,30,0,16,0,0);
     }
    
 }
-drawRectanngle(5,3);*/
+drawRectanngle(5,3);
+
 // exercicio 7 ====================
 
 /*function drawRectriangle(height){
@@ -179,7 +180,7 @@ drawRectriangle(5);*/
 drawRectanngle(10,10);*/
 
 // exercicio 9 ========================
-
+/*
 var student1 = {firstName:"Pedro",LastName:"Perreira",age:20,grade:16.5, getGrade:function(){return this.firstName + " " + this.LastName + " com idade: " + this.age + " com nota:" + this.grade}};
 var student2 = {firstName:"joao",LastName:"ferreira",age:21,grade:19,getGrade:function(){return this.firstName + " " + this.LastName + " com idade: " + this.age + " com nota:" + this.grade}};
 var student3 = {firstName:"miguel",LastName:"Nunes",age:22,grade:12,getGrade:function(){return this.firstName + " " + this.LastName + " com idade: " + this.age + " com nota:" + this.grade}};
@@ -314,5 +315,4 @@ function getClosestFromAverage(array) {
 var getClosest = getClosestFromAverage(studentarray);
 console.log(' ');
 console.log('media nota');
-console.log(getClosest.getGrade());
- 
+console.log(getClosest.getGrade());*/
