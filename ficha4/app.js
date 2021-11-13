@@ -5,7 +5,7 @@ var person = {
 };
 var PersonAsJSON = JSON.stringify(person);
 console.log(PersonAsJSON);
-
+//Ee
 //console.log(PersonAsJSON["age"])
 
 var personASOBJECT = JSON.parse('{"nome":"Done","age":23,"gender":"male"}');
